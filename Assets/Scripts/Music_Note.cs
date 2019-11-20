@@ -60,8 +60,8 @@ public class Music_Note : MonoBehaviour {
 		PreHitIndex = -1; 
 		nextIndex = 0;
 
-		song_note = GameObject.Find("HitPlane_mid").GetComponent<NoteInfo>();
-		score_manager = GameObject.Find("HitPlane_mid").GetComponent<ScoreManager>();
+		song_note = GameObject.Find("NoteInfo").GetComponent<NoteInfo>();
+		score_manager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 
 		song_note.LoadNote();
 		// Debug.Log(dspTimeSong);
@@ -78,11 +78,14 @@ public class Music_Note : MonoBehaviour {
 		// Debug.Log(songPosition);
 		// 判定是否需要生成新的 音符
 		if(song_note.ReadyToSpawn(nextSpawnIndex,songPosInBeat,BeatAdvance)){
-			//暂时生成
-			Instantiate(Resources.Load("mk_GP"));
+			//实例化 并为其改名
+			GameObject mk_GP = Instantiate(Resources.Load("mk_GP")) as GameObject;			
+			// 单轨道tag 暂时这样写 ，多轨道再改 //20191120
+			mk_GP.name = nextSpawnIndex.ToString();	
+
 			nextSpawnIndex++;
 		}
-		// 判定当前是否需要检索下一个Note
+		// 判定当前Hit位置是否需要检索下一个Note
 		if(song_note.ReadyToMove(nextIndex,songPosInBeat)){
 			nextIndex++;
 		}
@@ -98,7 +101,12 @@ public class Music_Note : MonoBehaviour {
 			else{
 				float TimeDif = song_note.HitDif(nearestInd,songPosInBeat);
 				if( score_manager.DoesGetHit(TimeDif)){
+					// 更改PreHitIndex信息 , 并立刻销毁之前实例化的对象
 					PreHitIndex = nearestInd;
+
+					GameObject obj = GameObject.Find(PreHitIndex.ToString());
+					DestroyImmediate(obj);
+
 					Debug.Log("Hit !!");
 				}
 			}
