@@ -51,13 +51,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\ReadNote.cs" />
      <Compile Include="Assets\Scripts\DestroyByBoundary.cs" />
      <Compile Include="Assets\Scripts\Music_Note.cs" />
      <Compile Include="Assets\Scripts\NoteInfo.cs" />
+     <Compile Include="Assets\Scripts\Scene_MainMenu.cs" />
+     <Compile Include="Assets\Scripts\ScoreBoard.cs" />
      <Compile Include="Assets\Scripts\ScoreManager.cs" />
      <Compile Include="Assets\Scripts\Spwan_point.cs" />
      <Compile Include="Assets\Scripts\testMove.cs" />
+     <None Include="Assets\streamingAssets\_short.txt" />
  <Reference Include="UnityEngine.CoreModule">
  <HintPath>D:/Unity 2017/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
  </Reference>

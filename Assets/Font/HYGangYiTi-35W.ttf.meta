@@ -1,0 +1,27 @@
+fileFormatVersion: 2
+guid: fe705cfbf7d6e6d4a9dd66b510bac855
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: HYGangYiTi
+  fontNames:
+  - HYGangYiTi
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: a03fa6208c4e5ac41980679aa9bc2733, type: 3}
+  - {fileID: 12800000, guid: c0811730dcac22c41955e7bf96f2a112, type: 3}
+  - {fileID: 12800000, guid: 4fc25471a3dc5c848910409f31dc6bb8, type: 3}
+  - {fileID: 12800000, guid: 4dedb3d13161e8248b8a6b40254bc797, type: 3}
+  - {fileID: 12800000, guid: e718d132646bd3f4db1d1a39037ed9f4, type: 3}
+  - {fileID: 12800000, guid: 3c9d96fa3e8a85b4c85367d99ba3055e, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

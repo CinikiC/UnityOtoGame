@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour {
 	//总得分数
-	private float TotalScore =0.0f;
+	private int TotalScore =0;
 
 	//连击数
 	private int combo = 0;
@@ -13,10 +13,14 @@ public class ScoreManager : MonoBehaviour {
 	private const float Good_Tolerance = 0.2f , Perfect_Tolerance = 0.1f;
 	
 	//增加分数 的 幅度，置为 public 供外部调试
-	public float Good_Score , Perfect_Score;
+	public int Good_Score , Perfect_Score;
 	
+	public int GetTotalScore(){
+		return TotalScore;
+	}
+
 	public bool DoesGetHit(float timedif){
-		float getscore = CheckScore(timedif);
+		int getscore = CheckScore(timedif);
 		if(getscore < 0){
 			combo = 0;
 			return false;
@@ -29,7 +33,7 @@ public class ScoreManager : MonoBehaviour {
 	}		
 
 	//根据时间差，返回打击得分 ， -1f代表miss
-	float CheckScore(float timedif){
+	int CheckScore(float timedif){
 		timedif = Mathf.Abs(timedif);
 
 		if(timedif <= Perfect_Tolerance)
@@ -37,6 +41,6 @@ public class ScoreManager : MonoBehaviour {
 		else if(Perfect_Tolerance < timedif  && timedif <= Good_Tolerance)
 			return Good_Score;
 		else
-			return -1f;
+			return -1;
 	}
 }

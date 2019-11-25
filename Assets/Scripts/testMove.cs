@@ -18,7 +18,7 @@ public class testMove : MonoBehaviour {
 		
 		// Vector3
 		// 191112准备定义速度，初步计算是 z 轴负方向 7  = (30 - 28)/4
-		GetComponent<Rigidbody>().velocity = new Vector3(0,0,-test_speed);
+		// GetComponent<Rigidbody>().velocity = new Vector3(0,0,-test_speed);
 		// transform.Translate(0,0,-1);
 	}
 }

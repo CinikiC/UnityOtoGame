@@ -2,8 +2,10 @@ WindowsStandalone
 PlayerPath?
 E:/Unity Projects/PingPongGame/build/PC.exe
 SceneListBegin?
+Assets/_Scenes/MainMenu.unity
 Assets/_Scenes/MainWeb.unity
 SceneListEnd?
+08f246fbb2bf3e1f50f54cc3e526d3c4 Assembly-CSharp.dll:.NoteInfo
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 4b12dd839b2293f8457cd67cc3610b85 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 8144169769d51429c4aedc8b0f92d47b UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -140,6 +142,7 @@ e0f7ffd5d5c2abe4b2e16569a21163da UnityEngine.GoogleAudioSpatializer.dll:UnityEng
 e0f7ffd5d5c2abe4b2e16569a21163da UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioRoom
 67a5f2c97205d2e41a8ed7c7ce898f6e UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSoundfieldExtension
 67a5f2c97205d2e41a8ed7c7ce898f6e UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSourceExtension
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ScoreBoard
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.PerformanceTesting.dll:UnityEngine.PerformanceTesting.TimeMeasurementScript
 bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.AudioSpatializerMicrosoft
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInput
@@ -147,6 +150,8 @@ bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.Audi
 c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingCollider
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ReadNote
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Scene_MainMenu
+5a66f5335ee9b4c69e92006959d11dcf Assembly-CSharp.dll:.ScoreManager
 2aa49f3190d307c9deb8c7a6648cb4d3 Assembly-CSharp.dll:.testMove
-6b66dbe39888ed60e21e0b59905d9052 Assembly-CSharp.dll:.Music_Note
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.DestroyByBoundary
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Music_Note

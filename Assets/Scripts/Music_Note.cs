@@ -21,8 +21,7 @@ using UnityEngine;
 	另外，如改变 bpm 时，需要同时改变 velocity , 才能保持 BeatAdvance不变。
 */
 public class Music_Note : MonoBehaviour {
-	// beats per minute , public 提供接口
-	public float bpm;
+	
 	// 节拍时间 , 由 bpm 计算
 	private float secPerBeat;
 
@@ -35,38 +34,44 @@ public class Music_Note : MonoBehaviour {
 
 	// 根据 Note 生成 音符 有一个拍子时间差,这个常量需要估计
 	// 根据实际情况修改
-	public float BeatAdvance ;
+	private float BeatAdvance ;
 
-	
+	private float velocity;
 	// 音乐对应的 NoteInfo  
 	NoteInfo song_note;
 	// 在Spawn 时 下一个被检索的 Note 的 Index
-	private int nextSpawnIndex;
+	private int[] nextSpawnIndex = new int[4];
 
 	// 当前拍子时间 songPosInBeat 将在 note 序列中检索位置
-	private int nextIndex;
+	private int[] nextIndex = new int[4];
 	// 上一个命中的 Note 在序列中的下标
-	private int PreHitIndex;
+	private int[] PreHitIndex = new int[4];
 	// ScoreManager
 	ScoreManager score_manager;
 
 	// Use this for initialization
 	void Start () {
-		secPerBeat = 60f/bpm;
-		dspTimeSong = (float)AudioSettings.dspTime;
 		
-		nextSpawnIndex = 0;
-
-		PreHitIndex = -1; 
-		nextIndex = 0;
+		// 四个轨道的 三种Index 初始化
+		for(int i = 0;i<4;++i){
+			nextSpawnIndex[i] = 0;
+			PreHitIndex[i] = -1; 
+			nextIndex[i] = 0;
+		}
 
 		song_note = GameObject.Find("NoteInfo").GetComponent<NoteInfo>();
 		score_manager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 
 		song_note.LoadNote();
+
+		secPerBeat = 60f/song_note.GetBpm();
+		dspTimeSong = (float)AudioSettings.dspTime;
+		BeatAdvance = 4f;
+		velocity = 28.0f / BeatAdvance * (1.0f * song_note.GetBpm()/60.0f) ;
+
 		// Debug.Log(dspTimeSong);
 		//开始播放音乐
-		//GetComponent().Play();
+		GetComponent<AudioSource>().Play();
 	}
 	
 	// Update is called once per frame
@@ -76,38 +81,62 @@ public class Music_Note : MonoBehaviour {
 		songPosInBeat = songPosition / secPerBeat;
 
 		// Debug.Log(songPosition);
-		// 判定是否需要生成新的 音符
-		if(song_note.ReadyToSpawn(nextSpawnIndex,songPosInBeat,BeatAdvance)){
-			//实例化 并为其改名
-			GameObject mk_GP = Instantiate(Resources.Load("mk_GP")) as GameObject;			
-			// 单轨道tag 暂时这样写 ，多轨道再改 //20191120
-			mk_GP.name = nextSpawnIndex.ToString();	
-
-			nextSpawnIndex++;
-		}
-		// 判定当前Hit位置是否需要检索下一个Note
-		if(song_note.ReadyToMove(nextIndex,songPosInBeat)){
-			nextIndex++;
-		}
-
-		// 判定是否按下 S 键 
-		// 这个操作以后需要封装到 另一个GameObject player 里统一得到 输入 信息. ezio 191113
-		if(  Input.GetKey(KeyCode.S)){
-			//根据 当前拍子时间计算 最近的Note下标
-			int nearestInd = song_note.GetNearestIndex(nextIndex,songPosInBeat);
-			if(PreHitIndex == nearestInd){
-				// 命中过则不在计算
+		for(int trackind = 0;trackind<4;++trackind){
+			// 判定每个轨道是否需要生成新的 音符
+			if(song_note.ReadyToSpawn(trackind,nextSpawnIndex[trackind],songPosInBeat,BeatAdvance)){
+				Debug.Log("ReadyToSpawn!");
+				// 实例化位置
+				int posX = 0;
+				switch (trackind)
+				{
+					case 0: posX = -9 ; break;
+					case 1: posX = -3 ; break;
+					case 2: posX = 3  ; break;
+					case 3: posX = 9  ; break;
+					default: break;
+				}
+				//实例化 并为其改名				
+				GameObject mk_GP = Instantiate(Resources.Load("mk_GP"),
+							new Vector3(posX,-10,30),Quaternion.identity)as GameObject;
+				mk_GP.GetComponent<Rigidbody>().velocity = new Vector3(0,0,-velocity);
+				
+				// 多轨道tag , Hit 时根据tag 销毁
+				mk_GP.name = trackind.ToString() +'-'+ nextSpawnIndex[trackind].ToString();	
+				
+				nextSpawnIndex[trackind]++;
 			}
-			else{
-				float TimeDif = song_note.HitDif(nearestInd,songPosInBeat);
-				if( score_manager.DoesGetHit(TimeDif)){
-					// 更改PreHitIndex信息 , 并立刻销毁之前实例化的对象
-					PreHitIndex = nearestInd;
-
-					GameObject obj = GameObject.Find(PreHitIndex.ToString());
-					DestroyImmediate(obj);
-
-					Debug.Log("Hit !!");
+			// 判定当前Hit位置是否需要检索下一个Note
+			if(song_note.ReadyToMove(trackind,nextIndex[trackind],songPosInBeat)){
+				nextIndex[trackind]++;
+			}
+		}
+		
+		// 是否 按键 Hit 轨道
+		bool[] HitTrackInd = new bool[4]; 
+		// Input GetKey 这个操作以后需要封装到 另一个GameObject player 里统一得到 输入 信息. ezio 191113
+		HitTrackInd[0] = Input.GetKey(KeyCode.D)?true:false;
+		HitTrackInd[1] = Input.GetKey(KeyCode.F)?true:false;
+		HitTrackInd[2] = Input.GetKey(KeyCode.J)?true:false;
+		HitTrackInd[3] = Input.GetKey(KeyCode.K)?true:false;
+		for(int trackind = 0;trackind < 4;++trackind){
+			if(HitTrackInd[trackind]){
+				//根据 当前拍子时间计算 最近的Note下标
+				int nearestInd = song_note.GetNearestIndex(trackind,nextIndex[trackind],songPosInBeat);
+				if(PreHitIndex[trackind] == nearestInd){
+					// 命中过则不在计算
+				}
+				else{
+					float TimeDif = song_note.HitDif(trackind,nearestInd,songPosInBeat);
+					if( score_manager.DoesGetHit(TimeDif)){
+						// 更改PreHitIndex信息 , 并立刻销毁之前实例化的对象
+						PreHitIndex[trackind] = nearestInd;
+	
+						GameObject obj = GameObject.Find(trackind.ToString() 
+									+'-'+PreHitIndex[trackind].ToString());
+						DestroyImmediate(obj);
+							
+						Debug.Log("Hit !!");
+					}
 				}
 			}
 		}
