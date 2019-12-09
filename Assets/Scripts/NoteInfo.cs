@@ -82,11 +82,12 @@ public class NoteInfo : MonoBehaviour{
 					// 	note_seq_len[trackind-1]++;
 					// }
 
-					//尝试延后 4f
-					note_seq[trackind-1].Add(seqind+8);
+					// 20191204 对准
+					// 尝试延后 12.125f
+					note_seq[trackind-1].Add(seqind+12.125f);
 					note_seq_len[trackind-1]++;
 
-					//// 原本逻辑
+					// // 原本逻辑
 					// note_seq[trackind-1].Add(seqind);
 					// note_seq_len[trackind-1]++;
 				}

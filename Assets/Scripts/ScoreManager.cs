@@ -19,6 +19,10 @@ public class ScoreManager : MonoBehaviour {
 		return TotalScore;
 	}
 
+	public int GetCombo(){
+		return combo;
+	}
+	
 	public bool DoesGetHit(float timedif){
 		int getscore = CheckScore(timedif);
 		if(getscore < 0){

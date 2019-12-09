@@ -55,11 +55,14 @@
      <Compile Include="Assets\Scripts\Music_Note.cs" />
      <Compile Include="Assets\Scripts\NoteInfo.cs" />
      <Compile Include="Assets\Scripts\Scene_MainMenu.cs" />
-     <Compile Include="Assets\Scripts\ScoreBoard.cs" />
      <Compile Include="Assets\Scripts\ScoreManager.cs" />
      <Compile Include="Assets\Scripts\Spwan_point.cs" />
      <Compile Include="Assets\Scripts\testMove.cs" />
+     <Compile Include="Assets\Scripts\UI\ComboBoard.cs" />
+     <Compile Include="Assets\Scripts\UI\ProgressDegree.cs" />
+     <Compile Include="Assets\Scripts\UI\ScoreBoard.cs" />
      <None Include="Assets\streamingAssets\_short.txt" />
+     <None Include="Assets\streamingAssets\todokai.txt" />
  <Reference Include="UnityEngine.CoreModule">
  <HintPath>D:/Unity 2017/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
  </Reference>
