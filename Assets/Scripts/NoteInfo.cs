@@ -12,15 +12,21 @@ public class NoteInfo : MonoBehaviour{
 	public string NoteFileName;
 
 	// bpm 为 整型
-	private int bpm;	
+	private int bpm;
+
+	//存放 Note 时间点
 	private List < List<float > >  note_seq = new List< List<float>>();
 	private int[] note_seq_len = new int[4];	
+
+	// 偏移量
+	private float offset = 0f;
 
 	//Note 文件 总 行 数目
 	private int totLine = 0;
 
 	// 加载本地 Note 序列 // 以后添加其他加载途径
 	public void LoadNote(){
+		Debug.Log("Start LoadNote!");
 		for(int i = 0 ;i < 4; ++i ){
 			note_seq_len[i] = 0;
 			note_seq.Add(new List<float>{});
@@ -28,23 +34,33 @@ public class NoteInfo : MonoBehaviour{
 		
 		try{
 			// 从streamingAssets 目录下得到 Note 文件 
-			// #if UNITY_EDITOR
-			// string fileAddress = Application.dataPath + "/streamingAssets/" + NoteFileName;
-			// #endif
-			//  var fileAddress = System.IO.Path.Combine(Application.streamingAssetsPath,NoteFileName);
-			var fileAddress = System.IO.Path.Combine(Application.streamingAssetsPath,NoteFileName);
-			// FileInfo fInfo0 = new FileInfo(fileAddress);
+#if UNITY_ANDROID
+			// Android 平台 不能用C#直接读 , 必须用www
+			string fileAddress = Application.streamingAssetsPath + "/" + NoteFileName;
+			Debug.Log(fileAddress);
+			ReadAndroidData(fileAddress);		
+#else
+			string fileAddress = Application.dataPath + "/StreamingAssets/" + NoteFileName;
+			Debug.Log(fileAddress);
 			StreamReader rd = new StreamReader(fileAddress);
-
+			
 			// 按行读
 			string curline = rd.ReadLine();
-			while(curline != null){
+			while (curline != null)
+			{
 				CheckCurLine(curline);
 				curline = rd.ReadLine();
 			}
 			rd.Close();
+#endif
+
+
+			//  var fileAddress = System.IO.Path.Combine(Application.streamingAssetsPath,NoteFileName);
+			// 20191210改用
+			// var fileAddress = System.IO.Path.Combine(Application.streamingAssetsPath,NoteFileName);
+			// FileInfo fInfo0 = new FileInfo(fileAddress);
 		}
-		catch(IOException e){
+		catch (IOException e){
 			Debug.Log("An IOexception has been thrown!");
 			Debug.Log(e.ToString());
 			return;
@@ -52,11 +68,37 @@ public class NoteInfo : MonoBehaviour{
 
 	}
 	
+	// 用www异步读取Android数据
+	void ReadAndroidData(string path)
+	{
+		WWW rd = new WWW(path);
+		//yield return rd;
+		while( rd.isDone == false)
+		{
+		//	yield return new WaitForEndOfFrame();
+		}
+		string context = rd.text;
+		string[] sArr = context.Split('\n');
+		foreach(string item in sArr)
+		{
+			CheckCurLine(item);
+			string tmp = item;
+		}
+		//yield return new WaitForEndOfFrame();
+	}
+
 	//
 	private void CheckCurLine(string str){
 		if(totLine == 0){
 			if(!int.TryParse(str,out bpm))
 				Debug.Log("Note txt first Line has problem.");
+			totLine ++;
+		}
+		else if(totLine == 1){
+			//读取偏移
+			if(!float.TryParse(str,out offset)){
+				Debug.Log("Note offset has problem.");
+			}
 			totLine ++;
 		}
 		else{
@@ -75,23 +117,11 @@ public class NoteInfo : MonoBehaviour{
 			// 当且仅当 是 track 对应 note 拍时 时才算真正的一行数据
 			if(cnt == 2)
 				if(0 < trackind && trackind <= 4){
-					// // 临时增加 -4f ，弥补 Note 
-					// // 之后一定要删除191125
-					// if(seqind - 4f > 4f){
-					// 	note_seq[trackind-1].Add(seqind - 4f);
-					// 	note_seq_len[trackind-1]++;
-					// }
-
-					// 20191204 对准
-					// 尝试延后 12.125f
-					note_seq[trackind-1].Add(seqind+12.125f);
+					// 原本逻辑
+					note_seq[trackind-1].Add(seqind + offset);
 					note_seq_len[trackind-1]++;
-
-					// // 原本逻辑
-					// note_seq[trackind-1].Add(seqind);
-					// note_seq_len[trackind-1]++;
 				}
-					
+			totLine ++;		
 		}
 	}
 

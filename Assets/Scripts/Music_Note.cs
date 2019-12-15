@@ -24,7 +24,7 @@ public class Music_Note : MonoBehaviour {
 	
 	// 节拍时间 , 由 bpm 计算
 	private float secPerBeat;
-
+	
 	// 音乐开始时间
 	private float dspTimeSong;
 	// 音乐目前时间位置，真实时间
@@ -48,10 +48,10 @@ public class Music_Note : MonoBehaviour {
 	private int[] PreHitIndex = new int[4];
 	// ScoreManager
 	ScoreManager score_manager;
+	// 玩家输入 封装体 
+	PlayerInput play_input;
 
-	// Use this for initialization
-	void Start () {
-		
+	void Awake() {
 		// 四个轨道的 三种Index 初始化
 		for(int i = 0;i<4;++i){
 			nextSpawnIndex[i] = 0;
@@ -61,9 +61,22 @@ public class Music_Note : MonoBehaviour {
 
 		song_note = GameObject.Find("NoteInfo").GetComponent<NoteInfo>();
 		score_manager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+		play_input = GameObject.Find("Main Camera").GetComponent<PlayerInput>();
+
+// 如果要调试就注释掉这个实例
+		song_note.NoteFileName = SelectionMsg.Instance().NoteTxtName;
+		GetComponent<AudioSource>().clip = 
+					(AudioClip)Resources.Load(
+						"Audios/" + SelectionMsg.Instance().MusicName,
+						typeof(AudioClip));
+		//GetComponent<AudioSource>().Audio
 
 		song_note.LoadNote();
+	}
 
+	// Use this for initialization
+	void Start () {
+		
 		secPerBeat = 60f/song_note.GetBpm();
 		dspTimeSong = (float)AudioSettings.dspTime;
 		BeatAdvance = 4f;
@@ -84,7 +97,7 @@ public class Music_Note : MonoBehaviour {
 		for(int trackind = 0;trackind<4;++trackind){
 			// 判定每个轨道是否需要生成新的 音符
 			if(song_note.ReadyToSpawn(trackind,nextSpawnIndex[trackind],songPosInBeat,BeatAdvance)){
-				Debug.Log("ReadyToSpawn!");
+				//Debug.Log("ReadyToSpawn!");
 				// 实例化位置
 				int posX = 0;
 				switch (trackind)
@@ -114,10 +127,12 @@ public class Music_Note : MonoBehaviour {
 		// 是否 按键 Hit 轨道
 		bool[] HitTrackInd = new bool[4]; 
 		// Input GetKey 这个操作以后需要封装到 另一个GameObject player 里统一得到 输入 信息. ezio 191113
-		HitTrackInd[0] = Input.GetKey(KeyCode.D)?true:false;
-		HitTrackInd[1] = Input.GetKey(KeyCode.F)?true:false;
-		HitTrackInd[2] = Input.GetKey(KeyCode.J)?true:false;
-		HitTrackInd[3] = Input.GetKey(KeyCode.K)?true:false;
+		// HitTrackInd[0] = Input.GetKey(KeyCode.D)?true:false;
+		// HitTrackInd[1] = Input.GetKey(KeyCode.F)?true:false;
+		// HitTrackInd[2] = Input.GetKey(KeyCode.J)?true:false;
+		// HitTrackInd[3] = Input.GetKey(KeyCode.K)?true:false;
+		play_input.DoseHit(HitTrackInd);
+		
 		for(int trackind = 0;trackind < 4;++trackind){
 			if(HitTrackInd[trackind]){
 				//根据 当前拍子时间计算 最近的Note下标
@@ -135,7 +150,7 @@ public class Music_Note : MonoBehaviour {
 									+'-'+PreHitIndex[trackind].ToString());
 						DestroyImmediate(obj);
 							
-						Debug.Log("Hit !!");
+						// Debug.Log("Hit !!");
 					}
 				}
 			}

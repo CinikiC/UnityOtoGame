@@ -28,10 +28,16 @@
         {
             "name": "iOS Player",
             "type": "unity",
+            // "path": "/e:/Unity Projects/PingPongGame/Library/EditorInstance.json",
             "request": "launch"
         },
         {
             "name": "Android Player",
+            "type": "unity",
+            "request": "launch"
+        },
+        {
+            "name": "AndroidPlayer(ADB@127.0.0.1:34999)",
             "type": "unity",
             "request": "launch"
         }

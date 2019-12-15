@@ -595,6 +595,7 @@ GameObject:
   - component: {fileID: 723574558}
   - component: {fileID: 723574557}
   - component: {fileID: 723574561}
+  - component: {fileID: 723574563}
   - component: {fileID: 723574562}
   m_Layer: 0
   m_Name: Main Camera
@@ -686,7 +687,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5866b212082013b47b5b6866878e25bf, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 55e06b18dcb4f9648aaa4e0e455128e2, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -757,6 +758,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &723574563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 723574556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c40072a39d2faca49990a32632ec18fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1074435585
 GameObject:
   m_ObjectHideFlags: 0
@@ -1526,7 +1538,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1777351290}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1624,7 +1636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 431c7a2016258424fae9a3ae1c8b680c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NoteFileName: _short.txt
+  NoteFileName: todokai_piano.txt
 --- !u!4 &1933902056
 Transform:
   m_ObjectHideFlags: 0
