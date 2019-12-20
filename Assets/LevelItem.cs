@@ -13,13 +13,16 @@ public class LevelItem : MonoBehaviour,IPointerClickHandler{
 
 	public string PicName;
 
+	public string GameBGname;
+
 	public void OnPointerClick(PointerEventData eventData)
     {
 		SelectionMsg.Instance().NoteTxtName =  NoteTxtName;
         SelectionMsg.Instance().MusicName =  MusicName;
         SelectionMsg.Instance().PicName = PicName;
-		
-        SceneManager.LoadScene("Game");
+		SelectionMsg.Instance().GameBGname = GameBGname;
+
+        SceneManager.LoadScene("sel_game");
     }
 	// Use this for initialization
 	void Start () {

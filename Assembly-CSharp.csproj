@@ -69,6 +69,8 @@
      <Compile Include="Assets\Scripts\UI\VideoBG.cs" />
      <Compile Include="Assets\SelectionMsg.cs" />
      <Compile Include="Assets\ShowGameEnd.cs" />
+     <Compile Include="Assets\StartScene.cs" />
+     <Compile Include="Assets\UIFade.cs" />
      <None Include="Assets\StreamingAssets\todokai_piano.txt" />
      <None Include="Assets\StreamingAssets\todokai_song.txt" />
  <Reference Include="UnityEngine.CoreModule">

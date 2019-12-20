@@ -32,7 +32,7 @@ public class ProgressDegree : MonoBehaviour {
 			preDegree = curDegree;
 			int befDot = curDegree/10 , aftDot = curDegree%10;
 			pdtext.text = befDot.ToString() + '.' + aftDot.ToString();
+			Debug.Log(preDegree.ToString());
 		}
-		
 	}
 }

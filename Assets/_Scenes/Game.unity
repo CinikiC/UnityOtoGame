@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 230046515}
   - component: {fileID: 230046516}
   m_Layer: 0
-  m_Name: "\u7B80\u5355\u7684\u80CC\u666F\u56FE"
+  m_Name: BGpic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -687,7 +687,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5866b212082013b47b5b6866878e25bf, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1636,7 +1636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 431c7a2016258424fae9a3ae1c8b680c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NoteFileName: todokai_song.txt
+  NoteFileName: 
 --- !u!4 &1933902056
 Transform:
   m_ObjectHideFlags: 0

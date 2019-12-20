@@ -65,14 +65,19 @@ public class Music_Note : MonoBehaviour {
 		song_note = GameObject.Find("NoteInfo").GetComponent<NoteInfo>();
 		score_manager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 		play_input = GameObject.Find("Main Camera").GetComponent<PlayerInput>();
+// 如果要 不build调试 就注释掉下面用这个实例加载 NoteFileName 与 MusicName 
+// 还有背景图的7行
+		song_note.NoteFileName = SelectionMsg.Instance().NoteTxtName;
+		GetComponent<AudioSource>().clip = 
+					(AudioClip)Resources.Load(
+						"Audios/" + SelectionMsg.Instance().MusicName,
+						typeof(AudioClip));
+		GameObject.Find("BGpic").GetComponent<SpriteRenderer>().sprite 
+			= (Sprite)Resources.Load("Textures/GameBG/" + SelectionMsg.Instance().GameBGname,typeof(Sprite));
+
+
 		progress_degree = GameObject.Find("ProgressDegree").GetComponent<ProgressDegree>();
 		progress_degree.Load(GetComponent<AudioSource>().clip.length);
-// 如果要 不build调试 就注释掉下面用这个实例加载 NoteFileName 与 MusicName五行
-		// song_note.NoteFileName = SelectionMsg.Instance().NoteTxtName;
-		// GetComponent<AudioSource>().clip = 
-		// 			(AudioClip)Resources.Load(
-		// 				"Audios/" + SelectionMsg.Instance().MusicName,
-		// 				typeof(AudioClip));
 
 		song_note.LoadNote();
 	}
