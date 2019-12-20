@@ -680,6 +680,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NoteTxtName: todokai_piano.txt
   MusicName: 13914_20446.mid
+  PicName: pic1
 --- !u!1 &363806871
 GameObject:
   m_ObjectHideFlags: 0
@@ -1134,6 +1135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NoteTxtName: todokai_song.txt
   MusicName: _short
+  PicName: pic2
 --- !u!1 &614729478
 GameObject:
   m_ObjectHideFlags: 0
@@ -1299,9 +1301,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 654223877}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b8c5e8f9d7503b4bae3cc4fb506957f, type: 3}
+  m_Script: {fileID: 11500000, guid: bcb842b96fd05ac46af5dbfdc6d7e51d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsLoop: 1
   movTexture: {fileID: 15200000, guid: 8e91b1ddc27fc58478a3db7a8d8156a0, type: 3}
 --- !u!1 &837458889
 GameObject:

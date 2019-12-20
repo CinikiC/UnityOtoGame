@@ -129,6 +129,14 @@ public class NoteInfo : MonoBehaviour{
 		return this.bpm;
 	}
 
+	public int GetCntTotNote(){
+		int tot = 0;
+		for(int i = 0;i<4;++i){
+			tot += note_seq_len[i];
+		}
+		return tot;
+	}
+
 	// 根据 Hit 对应轨道 的Note 下标 算出时间差
 	public float HitDif(int trackInd,int obIndex,float HitPosInBeat){
 		return Mathf.Abs(note_seq[trackInd][obIndex] - HitPosInBeat);

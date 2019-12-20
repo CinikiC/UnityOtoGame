@@ -9,14 +9,26 @@ EditorBuildSettings:
     path: Assets/_Scenes/MainMenu.unity
     guid: 5259282631f55344aa2b20b1f088054f
   - enabled: 1
-    path: Assets/_Scenes/UI.unity
+    path: Assets/_Scenes/Start.unity
     guid: 4b675e5901b0e8a4b8e68e6d4c38a1ea
   - enabled: 1
-    path: Assets/_Scenes/Transition.unity
+    path: Assets/_Scenes/start_select.unity
     guid: 2408793c6a55a0e48966022b9c9cf527
   - enabled: 1
     path: Assets/_Scenes/SelectMusic.unity
     guid: 23f5817f0afcaed4092f96e19039b0b5
   - enabled: 1
-    path: Assets/_Scenes/MainWeb.unity
+    path: Assets/_Scenes/sel_game.unity
+    guid: 663ff16f4f533c4418e6266542856445
+  - enabled: 1
+    path: Assets/_Scenes/Game.unity
     guid: 9cda7bea527c60047a009235e5143e54
+  - enabled: 1
+    path: Assets/_Scenes/game_end.unity
+    guid: f2b0e6fac9c6a7c42814219979558b91
+  - enabled: 1
+    path: Assets/_Scenes/End.unity
+    guid: 9c47918b4b9c0fc4ea82bad71216633c
+  - enabled: 1
+    path: Assets/_Scenes/end_sel.unity
+    guid: 3cd10ca46a65a0b44a1b787473b780b8

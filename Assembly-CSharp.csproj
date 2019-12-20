@@ -65,10 +65,10 @@
      <Compile Include="Assets\Scripts\UI\Jump0to2.cs" />
      <Compile Include="Assets\Scripts\UI\ProgressDegree.cs" />
      <Compile Include="Assets\Scripts\UI\ScoreBoard.cs" />
-     <Compile Include="Assets\Scripts\UI\SelectMusicBG.cs" />
      <Compile Include="Assets\Scripts\UI\TransitionBG.cs" />
      <Compile Include="Assets\Scripts\UI\VideoBG.cs" />
      <Compile Include="Assets\SelectionMsg.cs" />
+     <Compile Include="Assets\ShowGameEnd.cs" />
      <None Include="Assets\StreamingAssets\todokai_piano.txt" />
      <None Include="Assets\StreamingAssets\todokai_song.txt" />
  <Reference Include="UnityEngine.CoreModule">

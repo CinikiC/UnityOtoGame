@@ -6,9 +6,9 @@ using UnityEngine;
 
 using UnityEngine.UI;
 
-public class SelectMusicBG : MonoBehaviour {
+public class VideoBG : MonoBehaviour {
 
-	  
+	public bool IsLoop = true;
 
 	public MovieTexture movTexture=null;
 
@@ -16,7 +16,7 @@ public class SelectMusicBG : MonoBehaviour {
 
 	    void Start () {
 
-		        movTexture.loop = true;//Loop Playback
+		        movTexture.loop = false;
 		        movTexture.Play();
 		        RawImage raw = GetComponent<RawImage> ();
 		        raw.texture = movTexture;

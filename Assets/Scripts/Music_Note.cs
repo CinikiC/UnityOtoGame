@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // 同步 Music 与 Note
 // 按拍子时间定位Note , 并根据 Note 生成音符Point
@@ -51,6 +52,8 @@ public class Music_Note : MonoBehaviour {
 	// 玩家输入 封装体 
 	PlayerInput play_input;
 
+	ProgressDegree progress_degree;
+
 	void Awake() {
 		// 四个轨道的 三种Index 初始化
 		for(int i = 0;i<4;++i){
@@ -62,14 +65,14 @@ public class Music_Note : MonoBehaviour {
 		song_note = GameObject.Find("NoteInfo").GetComponent<NoteInfo>();
 		score_manager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 		play_input = GameObject.Find("Main Camera").GetComponent<PlayerInput>();
-
-// 如果要调试就注释掉这个实例
-		song_note.NoteFileName = SelectionMsg.Instance().NoteTxtName;
-		GetComponent<AudioSource>().clip = 
-					(AudioClip)Resources.Load(
-						"Audios/" + SelectionMsg.Instance().MusicName,
-						typeof(AudioClip));
-		//GetComponent<AudioSource>().Audio
+		progress_degree = GameObject.Find("ProgressDegree").GetComponent<ProgressDegree>();
+		progress_degree.Load(GetComponent<AudioSource>().clip.length);
+// 如果要 不build调试 就注释掉下面用这个实例加载 NoteFileName 与 MusicName五行
+		// song_note.NoteFileName = SelectionMsg.Instance().NoteTxtName;
+		// GetComponent<AudioSource>().clip = 
+		// 			(AudioClip)Resources.Load(
+		// 				"Audios/" + SelectionMsg.Instance().MusicName,
+		// 				typeof(AudioClip));
 
 		song_note.LoadNote();
 	}
@@ -155,5 +158,34 @@ public class Music_Note : MonoBehaviour {
 				}
 			}
 		}
+
+		progress_degree.UpdateText(GetComponent<AudioSource>().time);
+		if(progress_degree.IsOver()){
+			
+			//给下一个场景传递得分
+			SelectionMsg.Instance().cntPerfect = score_manager.GetCntPerfect();
+			SelectionMsg.Instance().cntGood = score_manager.GetCntGood();
+			SelectionMsg.Instance().cntMiss = score_manager.GetCntMiss();
+			SelectionMsg.Instance().score = score_manager.GetTotalScore();
+			
+			float ScoreMole = 1f * score_manager.GetTotalScore();
+			float ScoreDeno = 1f * score_manager.Perfect_Score *song_note.GetCntTotNote();
+			//为分数定级
+			if( ScoreMole / ScoreDeno >0.95f){
+				SelectionMsg.Instance().scoreDegree = 0;
+			}else if( ScoreMole / ScoreDeno >0.8f){
+				SelectionMsg.Instance().scoreDegree = 1;
+			}else{
+				SelectionMsg.Instance().scoreDegree = 2;
+			}
+			StartCoroutine(Delay());
+		}
+	}
+
+
+	IEnumerator Delay()
+	{
+		yield return new WaitForSeconds(5);
+		SceneManager.LoadSceneAsync(5);
 	}
 }

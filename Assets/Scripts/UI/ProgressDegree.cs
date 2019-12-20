@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ProgressDegree : MonoBehaviour {
-
-	
 	// 向 PDText 传 进度数字
 	Text pdtext;
 	
@@ -13,23 +11,20 @@ public class ProgressDegree : MonoBehaviour {
 	// 显示时转为 百分数 ， 用整形便于比较
 	int preDegree;
 
-	// 音频对象
-	private AudioSource m_Audio;
 	// 音频时间长度
 	private float music_len;
-	// Use this for initialization
-	void Start () {
-		m_Audio = GameObject.Find("Main Camera").GetComponent<AudioSource>();
-		music_len = m_Audio.clip.length;
 
+	public bool IsOver(){
+		return preDegree==1000;
+	}
+	public void Load(float len){
+		music_len = len;
 		pdtext = GameObject.Find("PDText").GetComponent<Text>();
 		pdtext.text = "0.0";
 	}
-	
-	// Update is called once per frame
-	void Update () {
+	public void UpdateText(float curtime){
 		// 当前时间
-		float cur = m_Audio.time;
+		float cur = curtime;
 		
 		// 当前进度数字 如有改变 ,则重新显示。
 		int curDegree = ((int)(cur/music_len * 1000f));
@@ -38,5 +33,6 @@ public class ProgressDegree : MonoBehaviour {
 			int befDot = curDegree/10 , aftDot = curDegree%10;
 			pdtext.text = befDot.ToString() + '.' + aftDot.ToString();
 		}
+		
 	}
 }

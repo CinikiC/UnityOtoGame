@@ -9,6 +9,11 @@ public class SelectionMsg{
 	public string NoteTxtName;
 	public string MusicName;
 
+    //图片名，用以在结算时显示图片，路径为Assets/Resources/Textures/Pic
+    public string PicName;
+
+    public int score,cntPerfect,cntGood,cntMiss;
+    public int scoreDegree;
     private SelectionMsg()
     {
         //将构造函数置为私有

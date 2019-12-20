@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class TransitionBG : MonoBehaviour {
 
-
+	public int LoadSceneInd;
 
 	public MovieTexture movTexture=null;
 
@@ -25,7 +25,7 @@ public class TransitionBG : MonoBehaviour {
 	IEnumerator Delay()
 	{
 		yield return new WaitForSeconds(10);
-		SceneManager.LoadSceneAsync(2);
+		SceneManager.LoadSceneAsync(LoadSceneInd);
 	}
 	void update()
 	{
